@@ -19,7 +19,13 @@ Build the backend dependencies. Make sure to run the following commands in the `
 pip install -r requirements.txt
 ```
 
+> [!WARNING]
+> Change the value of the `FLASK_SECRET_KEY` in the [backend/.env](backend/.env) file to a random string. This is used to secure the session cookies / JWT tokens.
+
 This project must have a valid API key for TMDB. Copy the file [backend/example.env](backend/example.env) to `backend/.env` and replace the placeholder for `TMDB_API_KEY` with a valid API key.
+
+> [!CAUTION]
+> The API key should be kept secret. Do not share it publicly.
 
 After that, you can run the backend server (inside the `backend` directory):
 
@@ -57,11 +63,12 @@ npm run test
 
 The backend uses SQLite as the database. The database file is created automatically when the backend server is started. If it didn't, or if you need to reset the database, you can delete the `backend/db/db.sqlite` file and restart the backend server. The database will be recreated.
 
-Alternatively, you can run the following command to create the database file:
+The app will also create the first admin username for you automatically, see the terminal output for the username and password.
 
-```bash
-python db/db.py
-```
+If you would like to set your own values for the first admin user, you can do so by setting the `FLASK_INITIAL_ADMIN_USERNAME`, `FLASK_INITIAL_ADMIN_EMAIL`, and `FLASK_INITIAL_ADMIN_PASSWORD` environment variables. See the [backend/example.env](backend/example.env) file for an example.
+
+> [!WARNING]
+> The initial admin user is created only once, when the database file is created. If you delete the database file, the initial admin user will be created again. It is also highly recommended to change the initial admin password after the first login, even if you set your own password in the environment variables.
 
 ## Running the Project with Docker
 
@@ -82,4 +89,4 @@ CD (Continuous Deployment to a production server) is not set up yet. [//]: # (TO
 
 ## License
 
-This project is free and open source, and there is no license attached to it. Feel free to use it in any way you see fit.
+This project is free and open source, see the [LICENSE](LICENSE) file for more information.
